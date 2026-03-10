@@ -106,6 +106,66 @@
         .kpi-value.warm { color: var(--warm); }
         .kpi-value.accent { color: #5E9F93; }
         .kpi-value.cool { color: var(--cool); }
+        .kpi-card.clickable { cursor: pointer; position: relative; }
+        .kpi-card.clickable::after {
+            content: 'Click to view'; font-size: 10px; color: var(--text-muted);
+            position: absolute; bottom: 8px; right: 12px; opacity: 0; transition: opacity 0.2s;
+        }
+        .kpi-card.clickable:hover::after { opacity: 1; }
+
+        /* SIGNAL DETAIL PANEL */
+        .signal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(26,47,69,0.4); z-index: 1000; backdrop-filter: blur(2px);
+            animation: fadeIn 0.15s ease;
+        }
+        .signal-overlay.active { display: flex; justify-content: center; align-items: flex-start; padding-top: 80px; }
+        .signal-panel {
+            background: var(--bg-card); border-radius: var(--radius); padding: 0;
+            width: 680px; max-width: 95vw; max-height: 75vh;
+            box-shadow: 0 20px 60px rgba(26,47,69,0.3); overflow: hidden;
+            animation: slideUp 0.2s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .signal-panel-header {
+            padding: 20px 24px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .signal-panel-header h2 { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .signal-panel-close {
+            width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border);
+            background: transparent; color: var(--text-secondary); font-size: 18px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+        }
+        .signal-panel-close:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+        .signal-panel-body { padding: 0; max-height: 58vh; overflow-y: auto; }
+        .signal-buyer-row {
+            display: flex; align-items: flex-start; gap: 14px; padding: 14px 24px;
+            border-bottom: 1px solid var(--border); transition: background 0.1s;
+        }
+        .signal-buyer-row:hover { background: var(--bg-card-hover); }
+        .signal-buyer-row:last-child { border-bottom: none; }
+        .buyer-avatar {
+            width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 14px; color: white;
+        }
+        .buyer-info { flex: 1; min-width: 0; }
+        .buyer-name { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+        .buyer-dept { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+        .buyer-software-list { display: flex; flex-wrap: wrap; gap: 4px; }
+        .buyer-sw-tag {
+            display: inline-block; padding: 2px 8px; border-radius: 4px;
+            font-size: 11px; font-weight: 500;
+        }
+        .buyer-sw-tag.hot { background: var(--hot-bg); color: var(--hot); }
+        .buyer-sw-tag.warm { background: rgba(242,201,76,0.15); color: #c9a020; }
+        .buyer-sw-tag.cool { background: var(--cool-bg); color: #3d8a7a; }
+        .signal-panel-footer {
+            padding: 12px 24px; border-top: 1px solid var(--border);
+            font-size: 12px; color: var(--text-muted); text-align: center;
+        }
 
         /* ALERT BANNER */
         .alert-banner {
@@ -272,19 +332,31 @@
             </span>
         </div>
 
+        <!-- SIGNAL DETAIL OVERLAY -->
+        <div class="signal-overlay" id="signal-overlay" onclick="if(event.target===this)closeSignalPanel()">
+            <div class="signal-panel">
+                <div class="signal-panel-header">
+                    <h2><span id="signal-panel-badge"></span> <span id="signal-panel-title"></span></h2>
+                    <button class="signal-panel-close" onclick="closeSignalPanel()">&times;</button>
+                </div>
+                <div class="signal-panel-body" id="signal-panel-body"></div>
+                <div class="signal-panel-footer" id="signal-panel-footer"></div>
+            </div>
+        </div>
+
         <!-- KPIs -->
         <div class="kpi-row">
-            <div class="kpi-card">
+            <div class="kpi-card clickable" onclick="dashboard.showSignalPanel('all')">
                 <div class="kpi-label">Total Signals</div>
                 <div class="kpi-value accent" id="kpi-total">0</div>
                 <div class="kpi-detail" id="kpi-total-detail">unique interactions</div>
             </div>
-            <div class="kpi-card">
+            <div class="kpi-card clickable" onclick="dashboard.showSignalPanel('Hot')">
                 <div class="kpi-label">Hot Signals</div>
                 <div class="kpi-value hot" id="kpi-hot">0</div>
                 <div class="kpi-detail">active replacements</div>
             </div>
-            <div class="kpi-card">
+            <div class="kpi-card clickable" onclick="dashboard.showSignalPanel('Warm')">
                 <div class="kpi-label">Warm Signals</div>
                 <div class="kpi-value warm" id="kpi-warm">0</div>
                 <div class="kpi-detail">evaluating alternatives</div>
@@ -294,7 +366,7 @@
                 <div class="kpi-value accent" id="kpi-software">0</div>
                 <div class="kpi-detail">distinct products</div>
             </div>
-            <div class="kpi-card">
+            <div class="kpi-card clickable" onclick="dashboard.showSignalPanel('Cool')">
                 <div class="kpi-label">Active Stakeholders</div>
                 <div class="kpi-value cool" id="kpi-stakeholders">0</div>
                 <div class="kpi-detail">across departments</div>
@@ -716,6 +788,62 @@
             });
         }
 
+        showSignalPanel(urgency) {
+            const data = urgency === 'all'
+                ? this.filteredData
+                : this.filteredData.filter(d => d.urgency === urgency);
+
+            // Group by stakeholder
+            const byBuyer = {};
+            data.forEach(d => {
+                if (!byBuyer[d.stakeholder]) {
+                    byBuyer[d.stakeholder] = { dept: d.department, items: [] };
+                }
+                byBuyer[d.stakeholder].items.push(d);
+            });
+
+            // Sort buyers: most hot signals first, then by total count
+            const sorted = Object.entries(byBuyer).sort((a, b) => {
+                const aHot = a[1].items.filter(x => x.urgency === 'Hot').length;
+                const bHot = b[1].items.filter(x => x.urgency === 'Hot').length;
+                if (bHot !== aHot) return bHot - aHot;
+                return b[1].items.length - a[1].items.length;
+            });
+
+            // Title and badge
+            const titles = { all: 'All Signals', Hot: 'Hot Signals', Warm: 'Warm Signals', Cool: 'Cool Signals' };
+            const badgeColors = { all: '#5E9F93', Hot: '#F16B5B', Warm: '#c9a020', Cool: '#75C4AE' };
+            const avatarColors = ['#1A2F45', '#5E9F93', '#F16B5B', '#F2C94C', '#3d5a73', '#e8887d', '#75C4AE', '#FFC65E', '#8ab5a3', '#d4b87a'];
+
+            document.getElementById('signal-panel-title').textContent = titles[urgency] || 'Signals';
+            document.getElementById('signal-panel-badge').innerHTML =
+                `<span class="badge" style="background:${badgeColors[urgency]}22;color:${badgeColors[urgency]}">${data.length}</span>`;
+
+            // Build body
+            let html = '';
+            sorted.forEach(([name, info], idx) => {
+                const initials = name.split(' ').map(w => w[0]).join('').substring(0, 2);
+                const avatarBg = avatarColors[idx % avatarColors.length];
+                html += `<div class="signal-buyer-row">
+                    <div class="buyer-avatar" style="background:${avatarBg}">${initials}</div>
+                    <div class="buyer-info">
+                        <div class="buyer-name">${name}</div>
+                        <div class="buyer-dept">${info.dept}</div>
+                        <div class="buyer-software-list">`;
+                info.items.forEach(item => {
+                    const cls = item.urgency.toLowerCase();
+                    html += `<span class="buyer-sw-tag ${cls}" title="${item.intent}">${item.software}</span>`;
+                });
+                html += `</div></div></div>`;
+            });
+
+            document.getElementById('signal-panel-body').innerHTML = html;
+            document.getElementById('signal-panel-footer').textContent =
+                `${sorted.length} buyer${sorted.length !== 1 ? 's' : ''} \u2022 ${data.length} signal${data.length !== 1 ? 's' : ''} \u2022 ${new Set(data.map(d => d.software)).size} software titles`;
+
+            document.getElementById('signal-overlay').classList.add('active');
+        }
+
         renderPipelineTable() {
             const search = (document.getElementById('pipeline-search').value || '').toLowerCase();
             let data = this.filteredData;
@@ -820,6 +948,11 @@
             grid.innerHTML = html;
         }
     }
+
+    function closeSignalPanel() {
+        document.getElementById('signal-overlay').classList.remove('active');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSignalPanel(); });
 
     const dashboard = new Dashboard(DATA);
     </script>
