@@ -7,26 +7,26 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous"></script>
     <style>
         :root {
-            --bg-primary: #0f1117;
-            --bg-card: #1a1d27;
-            --bg-card-hover: #22263a;
-            --bg-header: #161922;
-            --text-primary: #e8eaed;
-            --text-secondary: #9aa0a6;
-            --text-muted: #6b7280;
-            --accent: #6C5CE7;
-            --accent-light: #a29bfe;
-            --hot: #ff6b6b;
-            --hot-bg: rgba(255,107,107,0.12);
-            --warm: #ffa726;
-            --warm-bg: rgba(255,167,38,0.12);
-            --cool: #4ecdc4;
-            --cool-bg: rgba(78,205,196,0.12);
-            --border: rgba(255,255,255,0.06);
+            --bg-primary: #FDF8F6;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f5efec;
+            --bg-header: #1A2F45;
+            --text-primary: #2D2D2D;
+            --text-secondary: #5a5a5a;
+            --text-muted: #8a8a8a;
+            --accent: #75C4AE;
+            --accent-light: #5E9F93;
+            --hot: #F16B5B;
+            --hot-bg: rgba(241,107,91,0.10);
+            --warm: #F2C94C;
+            --warm-bg: rgba(242,201,76,0.12);
+            --cool: #75C4AE;
+            --cool-bg: rgba(117,196,174,0.10);
+            --border: rgba(45,45,45,0.08);
             --gap: 16px;
             --radius: 12px;
-            --samplify-purple: #6C5CE7;
-            --samplify-blue: #0984e3;
+            --samplify-teal: #75C4AE;
+            --samplify-midnight: #1A2F45;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
@@ -40,7 +40,7 @@
 
         /* HEADER */
         .dashboard-header {
-            background: linear-gradient(135deg, #1a1d27 0%, #2d1b69 50%, #1a1d27 100%);
+            background: linear-gradient(135deg, #1A2F45 0%, #2a4a63 40%, #5E9F93 100%);
             padding: 24px 32px;
             border-radius: var(--radius);
             margin-bottom: var(--gap);
@@ -54,12 +54,12 @@
         .header-left { display: flex; align-items: center; gap: 16px; }
         .header-logo {
             width: 40px; height: 40px; border-radius: 8px;
-            background: var(--samplify-purple);
+            background: var(--samplify-teal);
             display: flex; align-items: center; justify-content: center;
             font-weight: 800; font-size: 18px; color: white;
         }
         .header-title { font-size: 22px; font-weight: 700; color: white; }
-        .header-subtitle { font-size: 13px; color: var(--accent-light); opacity: 0.8; }
+        .header-subtitle { font-size: 13px; color: #75C4AE; opacity: 0.9; }
         .header-right { display: flex; align-items: center; gap: 12px; }
         .cobrand-area {
             padding: 8px 16px; border-radius: 8px;
@@ -67,7 +67,7 @@
             font-size: 12px; color: var(--text-muted);
             cursor: pointer; transition: all 0.2s;
         }
-        .cobrand-area:hover { border-color: var(--accent-light); color: var(--text-secondary); }
+        .cobrand-area:hover { border-color: #75C4AE; color: #FDF8F6; }
 
         /* FILTERS */
         .filters-row {
@@ -77,19 +77,19 @@
             border: 1px solid var(--border);
         }
         .filter-group { display: flex; align-items: center; gap: 6px; }
-        .filter-group label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .filter-group label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
         .filter-group select {
             padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
-            background: var(--bg-primary); color: var(--text-primary); font-size: 13px;
+            background: #FDF8F6; color: #2D2D2D; font-size: 13px;
             cursor: pointer; outline: none;
         }
-        .filter-group select:focus { border-color: var(--accent); }
+        .filter-group select:focus { border-color: #75C4AE; }
         .filter-reset {
             margin-left: auto; padding: 6px 14px; border-radius: 6px;
             background: transparent; border: 1px solid var(--border); color: var(--text-secondary);
             font-size: 12px; cursor: pointer; transition: all 0.2s;
         }
-        .filter-reset:hover { border-color: var(--accent); color: var(--accent-light); }
+        .filter-reset:hover { border-color: #75C4AE; color: #5E9F93; }
 
         /* KPI CARDS */
         .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap); margin-bottom: var(--gap); }
@@ -98,13 +98,13 @@
             padding: 20px 24px; border: 1px solid var(--border);
             transition: all 0.2s;
         }
-        .kpi-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+        .kpi-card:hover { border-color: #75C4AE; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(117,196,174,0.15); }
         .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
         .kpi-value { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
         .kpi-detail { font-size: 12px; color: var(--text-secondary); }
         .kpi-value.hot { color: var(--hot); }
         .kpi-value.warm { color: var(--warm); }
-        .kpi-value.accent { color: var(--accent-light); }
+        .kpi-value.accent { color: #5E9F93; }
         .kpi-value.cool { color: var(--cool); }
 
         /* ALERT BANNER */
@@ -137,7 +137,7 @@
         .table-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
         .table-search {
             padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
-            background: var(--bg-primary); color: var(--text-primary); font-size: 13px; outline: none;
+            background: #FDF8F6; color: #2D2D2D; font-size: 13px; outline: none;
             width: 220px;
         }
         .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
@@ -150,7 +150,7 @@
         .data-table thead th:hover { color: var(--text-secondary); }
         .data-table tbody td { padding: 12px 14px; border-bottom: 1px solid var(--border); }
         .data-table tbody tr { transition: background 0.15s; }
-        .data-table tbody tr:hover { background: var(--bg-card-hover); }
+        .data-table tbody tr:hover { background: #f5efec; }
 
         /* BADGES */
         .badge {
@@ -158,28 +158,28 @@
             font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;
         }
         .badge-hot { background: var(--hot-bg); color: var(--hot); }
-        .badge-warm { background: var(--warm-bg); color: var(--warm); }
+        .badge-warm { background: rgba(242,201,76,0.15); color: #c9a020; }
         .badge-cool { background: var(--cool-bg); color: var(--cool); }
 
         .intent-tag {
             display: inline-block; padding: 2px 8px; border-radius: 4px;
-            font-size: 11px; background: rgba(108,92,231,0.15); color: var(--accent-light);
+            font-size: 11px; background: rgba(117,196,174,0.15); color: #3d7a6a;
         }
 
         /* STAKEHOLDER CARDS */
         .stakeholder-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
         .stakeholder-card {
-            background: var(--bg-primary); border-radius: 8px; padding: 16px;
+            background: #FDF8F6; border-radius: 8px; padding: 16px;
             border: 1px solid var(--border); transition: all 0.2s;
         }
-        .stakeholder-card:hover { border-color: var(--accent); }
+        .stakeholder-card:hover { border-color: #75C4AE; }
         .stakeholder-name { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
         .stakeholder-dept { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
         .stakeholder-stats { display: flex; gap: 12px; font-size: 12px; color: var(--text-secondary); }
         .stakeholder-software { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
         .sw-chip {
             display: inline-block; padding: 2px 8px; border-radius: 4px;
-            font-size: 10px; background: rgba(255,255,255,0.05); color: var(--text-secondary);
+            font-size: 10px; background: rgba(94,159,147,0.10); color: #3d7a6a;
         }
 
         /* FOOTER */
@@ -189,7 +189,7 @@
         .footer-logo { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px; }
         .footer-logo-icon {
             width: 24px; height: 24px; border-radius: 6px;
-            background: var(--samplify-purple); display: flex; align-items: center;
+            background: var(--samplify-teal); display: flex; align-items: center;
             justify-content: center; font-weight: 800; font-size: 12px; color: white;
         }
 
@@ -201,7 +201,7 @@
             .dashboard-header { flex-direction: column; align-items: flex-start; }
         }
         @media print {
-            body { background: white; color: #333; }
+            body { background: white; color: #2D2D2D; }
             .dashboard-container { max-width: none; }
             .kpi-card, .chart-container, .table-section { border: 1px solid #ddd; box-shadow: none; background: white; }
         }
@@ -213,8 +213,8 @@
             background: transparent; color: var(--text-secondary); font-size: 13px;
             cursor: pointer; transition: all 0.2s; font-weight: 500;
         }
-        .tab-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
-        .tab-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent-light); }
+        .tab-btn.active { background: #5E9F93; color: white; border-color: #5E9F93; }
+        .tab-btn:hover:not(.active) { border-color: #75C4AE; color: #5E9F93; }
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
     </style>
@@ -380,9 +380,9 @@
     const DATA = [{"date": "2025-09-25", "stakeholder": "Alex Chen", "department": "CX Technology", "software": "SAP Power Designer", "category": "Content & Asset Mgmt", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2025-09-25", "stakeholder": "Alex Chen", "department": "CX Technology", "software": "How do i start using SAM?", "category": "Other", "intent": "Usage Inquiry", "urgency": "Cool"}, {"date": "2025-09-23", "stakeholder": "Jordan Blake", "department": "Finance Systems", "software": "Celonis", "category": "Data & Analytics", "intent": "General Inquiry", "urgency": "Cool"}, {"date": "2025-09-29", "stakeholder": "Jordan Blake", "department": "Finance Systems", "software": "Program and Project Management Soft", "category": "Collaboration & Productivity", "intent": "Comparison", "urgency": "Warm"}, {"date": "2025-09-30", "stakeholder": "Jordan Blake", "department": "Finance Systems", "software": "Atlassian", "category": "Collaboration & Productivity", "intent": "Comparison", "urgency": "Warm"}, {"date": "2025-09-24", "stakeholder": "Morgan Rivera", "department": "Platform Engineering", "software": "ScrunchAI", "category": "AI & Emerging Tech", "intent": "Comparison", "urgency": "Warm"}, {"date": "2025-09-22", "stakeholder": "Morgan Rivera", "department": "Platform Engineering", "software": "Sprinklr", "category": "CX & Marketing", "intent": "General Inquiry", "urgency": "Cool"}, {"date": "2025-09-25", "stakeholder": "Morgan Rivera", "department": "Platform Engineering", "software": "Pricing", "category": "Other", "intent": "Comparison", "urgency": "Warm"}, {"date": "2025-09-25", "stakeholder": "Morgan Rivera", "department": "Platform Engineering", "software": "CrowdTwist", "category": "CX & Marketing", "intent": "Comparison", "urgency": "Warm"}, {"date": "2025-09-25", "stakeholder": "Taylor Kim", "department": "IT Operations", "software": "Sprinklr", "category": "Collaboration & Productivity", "intent": "Comparison", "urgency": "Warm"}, {"date": "2025-10-27", "stakeholder": "Casey Patel", "department": "Data Engineering", "software": "Sales Navigator", "category": "CX & Marketing", "intent": "Evaluation", "urgency": "Warm"}, {"date": "2025-09-08", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "CryptSoft", "category": "Security & Identity", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-08", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "EMA Enterprise Link", "category": "Other", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-08", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "Kinsta", "category": "DevOps & Infrastructure", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-08", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "NVS and NVM", "category": "Other", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-08", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "Syncfusion", "category": "Development Tools", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-08", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "Google Workspace", "category": "Collaboration & Productivity", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-08", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "Infoblox", "category": "DevOps & Infrastructure", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-08", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "JProfiler", "category": "Development Tools", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-08", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "Enterprise Vault", "category": "Security & Identity", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-08", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "Lens", "category": "Other", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-24", "stakeholder": "Avery Zhao", "department": "Finance Systems", "software": "Project management SW", "category": "Collaboration & Productivity", "intent": "General Inquiry", "urgency": "Cool"}, {"date": "2025-09-22", "stakeholder": "Avery Zhao", "department": "Finance Systems", "software": "Alteratives to services planning", "category": "Other", "intent": "Comparison", "urgency": "Warm"}, {"date": "2025-09-18", "stakeholder": "Avery Zhao", "department": "Finance Systems", "software": "Analysis of Optimization software", "category": "Other", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2025-09-29", "stakeholder": "Quinn Murphy", "department": "Data Engineering", "software": "Software Alternatives", "category": "Other", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-13", "stakeholder": "Quinn Murphy", "department": "Data Engineering", "software": "DataRobot", "category": "Data & Analytics", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-13", "stakeholder": "Quinn Murphy", "department": "Data Engineering", "software": "Protecto Vault", "category": "Security & Identity", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2025-10-13", "stakeholder": "Quinn Murphy", "department": "Data Engineering", "software": "Rafay", "category": "DevOps & Infrastructure", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-13", "stakeholder": "Quinn Murphy", "department": "Data Engineering", "software": "Protecto Vault", "category": "Security & Identity", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-15", "stakeholder": "Quinn Murphy", "department": "Data Engineering", "software": "Locofy AI", "category": "AI & Emerging Tech", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-08", "stakeholder": "Dakota Singh", "department": "CX Technology", "software": "ABBYY", "category": "Content & Asset Mgmt", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-13", "stakeholder": "Riley Brooks", "department": "Security", "software": "VMO", "category": "Benchmarking & Research", "intent": "Pricing / Budget", "urgency": "Cool"}, {"date": "2025-10-22", "stakeholder": "Skyler Voss", "department": "Security", "software": "AG Grid", "category": "Development Tools", "intent": "Evaluation", "urgency": "Warm"}, {"date": "2025-10-27", "stakeholder": "Skyler Voss", "department": "Security", "software": "Learning Management Assessment", "category": "Other", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2025-10-07", "stakeholder": "Jamie Ortiz", "department": "Finance Systems", "software": "Adobe AMS", "category": "Content & Asset Mgmt", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2025-10-22", "stakeholder": "Drew Nakamura", "department": "IT Operations", "software": "Telerik", "category": "Development Tools", "intent": "Comparison", "urgency": "Warm"}, {"date": "2025-10-08", "stakeholder": "Drew Nakamura", "department": "IT Operations", "software": "OpenText", "category": "Content & Asset Mgmt", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2025-09-29", "stakeholder": "Sage Williams", "department": "Procurement", "software": "IBM Aspera", "category": "DevOps & Infrastructure", "intent": "Comparison", "urgency": "Warm"}, {"date": "2025-09-30", "stakeholder": "Sage Williams", "department": "Procurement", "software": "nan", "category": "Other", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-25", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Hi, question on replacing a homebre", "category": "Other", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2025-10-14", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Trados", "category": "Development Tools", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-23", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Stardog", "category": "Data & Analytics", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-28", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Simnovator", "category": "AI & Emerging Tech", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-18", "stakeholder": "Parker Liu", "department": "Security", "software": "SmartSheets", "category": "Collaboration & Productivity", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-14", "stakeholder": "Rowan Hayes", "department": "SAM", "software": "fastly.com", "category": "Other", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-24", "stakeholder": "Ellis Grant", "department": "Platform Engineering", "software": "HAProxy", "category": "DevOps & Infrastructure", "intent": "General Inquiry", "urgency": "Cool"}, {"date": "2025-10-06", "stakeholder": "Ellis Grant", "department": "Platform Engineering", "software": "TSANet", "category": "Other", "intent": "General Inquiry", "urgency": "Cool"}, {"date": "2025-09-12", "stakeholder": "Ellis Grant", "department": "Platform Engineering", "software": "Stardog", "category": "Data & Analytics", "intent": "Usage Inquiry", "urgency": "Cool"}, {"date": "2025-10-01", "stakeholder": "Ellis Grant", "department": "Platform Engineering", "software": "Evergreen", "category": "DevOps & Infrastructure", "intent": "General Inquiry", "urgency": "Cool"}, {"date": "2025-09-15", "stakeholder": "Ellis Grant", "department": "Platform Engineering", "software": "Neo4j", "category": "Data & Analytics", "intent": "General Inquiry", "urgency": "Cool"}, {"date": "2025-10-28", "stakeholder": "Ellis Grant", "department": "Platform Engineering", "software": "MobaXTerm", "category": "Development Tools", "intent": "General Inquiry", "urgency": "Cool"}, {"date": "2025-10-15", "stakeholder": "Ellis Grant", "department": "Platform Engineering", "software": "Ixnetwork", "category": "DevOps & Infrastructure", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Finley Ross", "department": "CX Technology", "software": "TCPWave IPAM", "category": "DevOps & Infrastructure", "intent": "Evaluation", "urgency": "Warm"}, {"date": "2025-09-17", "stakeholder": "Finley Ross", "department": "CX Technology", "software": "SAP Signavio", "category": "Content & Asset Mgmt", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-17", "stakeholder": "Finley Ross", "department": "CX Technology", "software": "SmartSheets", "category": "Collaboration & Productivity", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-09-11", "stakeholder": "Finley Ross", "department": "CX Technology", "software": "Qualifire", "category": "AI & Emerging Tech", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-08-13", "stakeholder": "Parker Liu", "department": "Security", "software": "Ruby", "category": "Development Tools", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Synthesia", "category": "AI & Emerging Tech", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "IVM Smart Locker", "category": "Other", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "ClickHouse", "category": "Data & Analytics", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Qualifire", "category": "AI & Emerging Tech", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Ubuntu Pro", "category": "DevOps & Infrastructure", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "ManageEngine", "category": "Security & Identity", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "HAProxy", "category": "DevOps & Infrastructure", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Docker", "category": "DevOps & Infrastructure", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Trace32", "category": "DevOps & Infrastructure", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Astute Graphics", "category": "Development Tools", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Kinsta", "category": "DevOps & Infrastructure", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Digital Human", "category": "CX & Marketing", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Stadia Maps", "category": "Mapping & Location", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "IBM Aspera", "category": "DevOps & Infrastructure", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Sales Chat Mobile", "category": "Other", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-01", "stakeholder": "Sage Williams", "department": "Procurement", "software": "Bluespine", "category": "AI & Emerging Tech", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2025-10-08", "stakeholder": "Dakota Singh", "department": "CX Technology", "software": "ABBYY", "category": "Content & Asset Mgmt", "intent": "Research", "urgency": "Cool"}, {"date": "2025-10-08", "stakeholder": "Dakota Singh", "department": "CX Technology", "software": "ABBYY", "category": "Content & Asset Mgmt", "intent": "Comparison", "urgency": "Warm"}, {"date": "2025-10-15", "stakeholder": "Ellis Grant", "department": "Platform Engineering", "software": "Ixnetwork", "category": "DevOps & Infrastructure", "intent": "Pricing / Budget", "urgency": "Cool"}, {"date": "2026-03-09", "stakeholder": "Blair Thompson", "department": "Enterprise Architecture", "software": "Finastra", "category": "Finance & Legal", "intent": "Follow-up (Active Cycle)", "urgency": "Hot"}, {"date": "2026-03-09", "stakeholder": "Morgan Rivera", "department": "Platform Engineering", "software": "Dell Communication Tools", "category": "Collaboration & Productivity", "intent": "Comparison", "urgency": "Warm"}, {"date": "2026-03-09", "stakeholder": "Emery Walsh", "department": "Platform Engineering", "software": "GRAX", "category": "Data & Analytics", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2026-02-25", "stakeholder": "Ellis Grant", "department": "Platform Engineering", "software": "Egnyte", "category": "Collaboration & Productivity", "intent": "Usage Inquiry", "urgency": "Cool"}, {"date": "2026-02-25", "stakeholder": "Blair Thompson", "department": "Enterprise Architecture", "software": "Elaw", "category": "Finance & Legal", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2026-02-23", "stakeholder": "Casey Patel", "department": "Data Engineering", "software": "Google Maps", "category": "Mapping & Location", "intent": "Evaluation", "urgency": "Warm"}, {"date": "2026-02-17", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "ISG Software", "category": "Benchmarking & Research", "intent": "Comparison", "urgency": "Warm"}, {"date": "2026-02-25", "stakeholder": "User 21", "department": "SAM", "software": "Cyara", "category": "CX & Marketing", "intent": "Comparison", "urgency": "Warm"}, {"date": "2026-03-04", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "Atlassian", "category": "Collaboration & Productivity", "intent": "Usage Inquiry", "urgency": "Cool"}, {"date": "2026-03-02", "stakeholder": "Blair Thompson", "department": "Enterprise Architecture", "software": "CPA Visions", "category": "Finance & Legal", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2026-02-20", "stakeholder": "Casey Patel", "department": "Data Engineering", "software": "WeChat", "category": "CX & Marketing", "intent": "Evaluation", "urgency": "Warm"}, {"date": "2026-03-02", "stakeholder": "Blair Thompson", "department": "Enterprise Architecture", "software": "Finastra", "category": "Finance & Legal", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2026-03-04", "stakeholder": "Blair Thompson", "department": "Enterprise Architecture", "software": "D&B Direct", "category": "Finance & Legal", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2026-03-06", "stakeholder": "Reese Cooper", "department": "IT Operations", "software": "Atlassian", "category": "Collaboration & Productivity", "intent": "Stack Analysis", "urgency": "Warm"}, {"date": "2026-02-26", "stakeholder": "Rowan Hayes", "department": "SAM", "software": "AppScan", "category": "Security & Identity", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2026-03-04", "stakeholder": "Ellis Grant", "department": "Platform Engineering", "software": "n8n", "category": "DevOps & Infrastructure", "intent": "Seeking Alternatives", "urgency": "Warm"}, {"date": "2026-02-23", "stakeholder": "Drew Nakamura", "department": "IT Operations", "software": "Re: vendor recommendation for elect", "category": "Other", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2026-02-25", "stakeholder": "Blair Thompson", "department": "Enterprise Architecture", "software": "Corptax", "category": "Finance & Legal", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2026-03-03", "stakeholder": "Jamie Ortiz", "department": "Finance Systems", "software": "Google Distributed Platform", "category": "Other", "intent": "General Inquiry", "urgency": "Cool"}, {"date": "2026-02-25", "stakeholder": "Blair Thompson", "department": "Enterprise Architecture", "software": "ARKK", "category": "Finance & Legal", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2026-03-02", "stakeholder": "Blair Thompson", "department": "Enterprise Architecture", "software": "SEC Reporting", "category": "Finance & Legal", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2026-03-02", "stakeholder": "Blair Thompson", "department": "Enterprise Architecture", "software": "Sovos", "category": "Finance & Legal", "intent": "Active Replacement", "urgency": "Hot"}, {"date": "2026-02-27", "stakeholder": "Jamie Ortiz", "department": "Finance Systems", "software": "Telerik", "category": "Development Tools", "intent": "Evaluation", "urgency": "Warm"}, {"date": "2026-03-09", "stakeholder": "Morgan Rivera", "department": "Platform Engineering", "software": "Glean", "category": "Collaboration & Productivity", "intent": "General Inquiry", "urgency": "Cool"}];
 
     const COLORS = {
-        purple: '#6C5CE7', blue: '#0984e3', teal: '#00cec9', green: '#00b894',
-        yellow: '#fdcb6e', orange: '#e17055', red: '#d63031', pink: '#e84393',
-        gray: '#636e72', lightBlue: '#74b9ff', mint: '#55efc4', lavender: '#a29bfe'
+        teal: '#75C4AE', mutedTeal: '#5E9F93', midnight: '#1A2F45', charcoal: '#2D2D2D',
+        salmon: '#F16B5B', golden: '#F2C94C', mustard: '#FFC65E', warmWhite: '#FDF8F6',
+        slate: '#3d5a73', sage: '#8ab5a3', coral: '#e8887d', sand: '#d4b87a'
     };
     const COLOR_ARR = Object.values(COLORS);
 
@@ -506,9 +506,9 @@
                 data: {
                     labels, datasets: [{
                         data, backgroundColor: labels.map((l,i) => {
-                            if (l.includes('Replacement') || l.includes('Follow')) return COLORS.red + 'CC';
-                            if (l.includes('Alternative') || l.includes('Evaluation') || l.includes('Comparison')) return COLORS.orange + 'CC';
-                            return COLORS.purple + 'CC';
+                            if (l.includes('Replacement') || l.includes('Follow')) return '#F16B5BCC';
+                            if (l.includes('Alternative') || l.includes('Evaluation') || l.includes('Comparison')) return '#FFC65ECC';
+                            return '#5E9F93CC';
                         }),
                         borderRadius: 6, borderSkipped: false,
                     }]
@@ -517,8 +517,8 @@
                     responsive: true, maintainAspectRatio: false, indexAxis: 'y',
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#9aa0a6' } },
-                        y: { grid: { display: false }, ticks: { color: '#e8eaed', font: { size: 11 } } }
+                        x: { grid: { color: 'rgba(45,45,45,0.06)' }, ticks: { color: '#5a5a5a' } },
+                        y: { grid: { display: false }, ticks: { color: '#2D2D2D', font: { size: 11 } } }
                     }
                 }
             });
@@ -535,14 +535,14 @@
                     labels: ['Hot', 'Warm', 'Cool'],
                     datasets: [{
                         data: [counts.Hot, counts.Warm, counts.Cool],
-                        backgroundColor: [COLORS.red + 'CC', COLORS.orange + 'CC', COLORS.teal + 'CC'],
-                        borderColor: '#1a1d27', borderWidth: 3,
+                        backgroundColor: ['#F16B5BCC', '#F2C94CCC', '#75C4AECC'],
+                        borderColor: '#ffffff', borderWidth: 3,
                     }]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false, cutout: '65%',
                     plugins: {
-                        legend: { position: 'bottom', labels: { color: '#e8eaed', usePointStyle: true, padding: 20 } },
+                        legend: { position: 'bottom', labels: { color: '#2D2D2D', usePointStyle: true, padding: 20 } },
                         tooltip: {
                             callbacks: {
                                 label: ctx => {
@@ -577,8 +577,8 @@
                     responsive: true, maintainAspectRatio: false, indexAxis: 'y',
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#9aa0a6' } },
-                        y: { grid: { display: false }, ticks: { color: '#e8eaed', font: { size: 11 } } }
+                        x: { grid: { color: 'rgba(45,45,45,0.06)' }, ticks: { color: '#5a5a5a' } },
+                        y: { grid: { display: false }, ticks: { color: '#2D2D2D', font: { size: 11 } } }
                     }
                 }
             });
@@ -600,17 +600,17 @@
                 data: {
                     labels: sortedMonths.map(m => { const [y,mo] = m.split('-'); return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(mo)-1] + ' ' + y.slice(2); }),
                     datasets: [
-                        { label: 'Hot', data: sortedMonths.map(m => months[m].Hot), backgroundColor: COLORS.red + 'CC', borderRadius: 4, borderSkipped: false },
-                        { label: 'Warm', data: sortedMonths.map(m => months[m].Warm), backgroundColor: COLORS.orange + 'CC', borderRadius: 4, borderSkipped: false },
-                        { label: 'Cool', data: sortedMonths.map(m => months[m].Cool), backgroundColor: COLORS.teal + 'CC', borderRadius: 4, borderSkipped: false },
+                        { label: 'Hot', data: sortedMonths.map(m => months[m].Hot), backgroundColor: '#F16B5BCC', borderRadius: 4, borderSkipped: false },
+                        { label: 'Warm', data: sortedMonths.map(m => months[m].Warm), backgroundColor: '#F2C94CCC', borderRadius: 4, borderSkipped: false },
+                        { label: 'Cool', data: sortedMonths.map(m => months[m].Cool), backgroundColor: '#75C4AECC', borderRadius: 4, borderSkipped: false },
                     ]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { position: 'top', labels: { color: '#e8eaed', usePointStyle: true, padding: 15 } } },
+                    plugins: { legend: { position: 'top', labels: { color: '#2D2D2D', usePointStyle: true, padding: 15 } } },
                     scales: {
-                        x: { stacked: true, grid: { display: false }, ticks: { color: '#9aa0a6' } },
-                        y: { stacked: true, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#9aa0a6' } }
+                        x: { stacked: true, grid: { display: false }, ticks: { color: '#5a5a5a' } },
+                        y: { stacked: true, grid: { color: 'rgba(45,45,45,0.06)' }, ticks: { color: '#5a5a5a' } }
                     }
                 }
             });
@@ -638,9 +638,9 @@
                         data: sorted.map(x => x[1]),
                         backgroundColor: sorted.map(x => {
                             const u = urgMap[x[0]];
-                            if (u === 'Hot') return COLORS.red + 'CC';
-                            if (u === 'Warm') return COLORS.orange + 'CC';
-                            return COLORS.teal + 'CC';
+                            if (u === 'Hot') return '#F16B5BCC';
+                            if (u === 'Warm') return '#F2C94CCC';
+                            return '#75C4AECC';
                         }),
                         borderRadius: 6, borderSkipped: false,
                     }]
@@ -649,8 +649,8 @@
                     responsive: true, maintainAspectRatio: false, indexAxis: 'y',
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#9aa0a6' } },
-                        y: { grid: { display: false }, ticks: { color: '#e8eaed', font: { size: 11 } } }
+                        x: { grid: { color: 'rgba(45,45,45,0.06)' }, ticks: { color: '#5a5a5a' } },
+                        y: { grid: { display: false }, ticks: { color: '#2D2D2D', font: { size: 11 } } }
                     }
                 }
             });
@@ -669,13 +669,13 @@
                     datasets: [{
                         data: sorted.map(x => x[1]),
                         backgroundColor: sorted.map((_,i) => COLOR_ARR[i % COLOR_ARR.length] + 'BB'),
-                        borderColor: '#1a1d27', borderWidth: 2,
+                        borderColor: '#ffffff', borderWidth: 2,
                     }]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false, cutout: '55%',
                     plugins: {
-                        legend: { position: 'bottom', labels: { color: '#e8eaed', usePointStyle: true, padding: 10, font: { size: 10 } } }
+                        legend: { position: 'bottom', labels: { color: '#2D2D2D', usePointStyle: true, padding: 10, font: { size: 10 } } }
                     }
                 }
             });
@@ -700,17 +700,17 @@
                 data: {
                     labels: sorted.map(x => x[0]),
                     datasets: [
-                        { label: 'Hot', data: sorted.map(x => x[1].Hot), backgroundColor: COLORS.red + 'CC', borderRadius: 3, borderSkipped: false },
-                        { label: 'Warm', data: sorted.map(x => x[1].Warm), backgroundColor: COLORS.orange + 'CC', borderRadius: 3, borderSkipped: false },
-                        { label: 'Cool', data: sorted.map(x => x[1].Cool), backgroundColor: COLORS.teal + 'CC', borderRadius: 3, borderSkipped: false },
+                        { label: 'Hot', data: sorted.map(x => x[1].Hot), backgroundColor: '#F16B5BCC', borderRadius: 3, borderSkipped: false },
+                        { label: 'Warm', data: sorted.map(x => x[1].Warm), backgroundColor: '#F2C94CCC', borderRadius: 3, borderSkipped: false },
+                        { label: 'Cool', data: sorted.map(x => x[1].Cool), backgroundColor: '#75C4AECC', borderRadius: 3, borderSkipped: false },
                     ]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false, indexAxis: 'y',
-                    plugins: { legend: { position: 'top', labels: { color: '#e8eaed', usePointStyle: true, padding: 15 } } },
+                    plugins: { legend: { position: 'top', labels: { color: '#2D2D2D', usePointStyle: true, padding: 15 } } },
                     scales: {
-                        x: { stacked: true, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#9aa0a6' } },
-                        y: { stacked: true, grid: { display: false }, ticks: { color: '#e8eaed', font: { size: 11 } } }
+                        x: { stacked: true, grid: { color: 'rgba(45,45,45,0.06)' }, ticks: { color: '#5a5a5a' } },
+                        y: { stacked: true, grid: { display: false }, ticks: { color: '#2D2D2D', font: { size: 11 } } }
                     }
                 }
             });
